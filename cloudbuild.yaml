@@ -12,6 +12,8 @@ steps:
         "push",
         "southamerica-east1-docker.pkg.dev/microservicios-494715/image-registry/auth-ms",
       ]
+options:
+  logging: CLOUD_LOGGING_ONLY
 availableSecrets:
   secretManager:
   - versionName: projects/759227357805/secrets/AUTH_DATABASE_URL/versions/1
