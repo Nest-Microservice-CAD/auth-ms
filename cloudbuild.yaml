@@ -10,8 +10,6 @@ steps:
         "--platform=linux/amd64",
         ".",
       ]
-    env:
-    - 'AUTH_DATABASE_URL=mongodb+srv://admin:admin@authms.uxfrmwa.mongodb.net/AuthDb'
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
