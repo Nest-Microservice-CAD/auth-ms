@@ -11,6 +11,9 @@ RUN npm install
 #Builder - construye la app
 FROM node:21-alpine3.19 as build
 
+ARG AUTH_DATABASE_URL
+ENV DATABASE_URL=$AUTH_DATABASE_URL
+
 WORKDIR /usr/src/app
 
 # Copiar de deps los modulos de node
@@ -18,6 +21,8 @@ COPY --from=deps /usr/src/app/node_modules ./node_modules
 
 # Copia todo el codigo
 COPY . .
+
+RUN npx prisma generate
 
 RUN npm run build
 
