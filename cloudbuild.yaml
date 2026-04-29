@@ -1,15 +1,11 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
+    entrypoint: 'bash'
     args:
-      [
-        "build",
-        "-t",
-        "southamerica-east1-docker.pkg.dev/microservicios-494715/image-registry/auth-ms",
-        "-f",
-        "dockerfile.prod",
-        "--platform=linux/amd64",
-        ".",
-      ]
+      - -c
+      - | 
+        docker build -t southamerica-east1-docker.pkg.dev/microservicios-494715/image-registry/auth-ms -f dockerfile.prod --platform=linux/amd64 --build-arg AUTH_DATABASE_URL=$$AUTH_DATABASE_URL .
+    secretEnv: ['AUTH_DATABASE_URL']
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
@@ -18,3 +14,7 @@ steps:
       ]
 options:
   logging: CLOUD_LOGGING_ONLY
+availableSecrets:
+  secretManager:
+  - versionName: projects/759227357805/secrets/AUTH_DATABASE_URL/versions/1
+    env: 'AUTH_DATABASE_URL'
